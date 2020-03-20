@@ -5,6 +5,8 @@
 #### SQLite - Schema
 ![drawing](https://cdn.sqlitetutorial.net/wp-content/uploads/2015/11/sqlite-sample-database-color.jpg)
 
+#### Start to start the exercise again change to branch "Begin"
+
 #### Requirements
     - Use GIT to track all your changes
     - Create an SPA with VUE with Routes
