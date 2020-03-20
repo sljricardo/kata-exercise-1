@@ -14642,14 +14642,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/style.scss":
+/*!******************************!*\
+  !*** ./resources/style.scss ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!********************************!*\
-  !*** multi ./resources/app.js ***!
-  \********************************/
+/*!*******************************************************!*\
+  !*** multi ./resources/app.js ./resources/style.scss ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/silva/code/pessoal/multitests/resources/app.js */"./resources/app.js");
+__webpack_require__(/*! /home/silva/code/pessoal/multitests/resources/app.js */"./resources/app.js");
+module.exports = __webpack_require__(/*! /home/silva/code/pessoal/multitests/resources/style.scss */"./resources/style.scss");
 
 
 /***/ })
