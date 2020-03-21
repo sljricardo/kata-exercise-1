@@ -13,8 +13,6 @@
     - Use Lumen has Backend to interact with DB
     - Create a button with ajax request to perform each operation:
         - Most selled tracks
-        - Most listened Artists
-        - Employee with most sales
         - Best Customer
         - Average price of sales
         - Top 5 billing countries
