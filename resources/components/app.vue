@@ -7,6 +7,12 @@
                 <button type="button" class="btn btn-dark" @click="bestCostumer">Best Costumer</button>
             </div>
 
+            <div class="col-8 px-0">
+                <div class="alert alert-primary" role="alert">
+                    Average price of sales: <strong>{{ average }}€</strong>
+                </div>
+            </div>
+
             <!-- Table Component -->
             <b-table :titles="titles" class="col-8">
                 <!-- each row -->
@@ -29,6 +35,7 @@
 
 <script>
 import table from './table';
+import numeral from 'numeral';
 
 export default {
 
@@ -41,6 +48,7 @@ export default {
             message: "hello",
             list: [],
             titles: "#|Track|Total Selled|Artist",
+            average: 0,
         }
     },
 
@@ -75,6 +83,17 @@ export default {
                 });      
         }
     },
+
+    mounted() {
+
+        this.bestCostumer();
+
+        axios.get('/averageprice')
+                .then(response => {               
+                   this.average = numeral(response.data[0].euros).format('0,0[.]00');
+                });   
+
+    }
 
 }
 </script>

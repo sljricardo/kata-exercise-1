@@ -32,3 +32,12 @@ $router->get('/bestcostumer', function() {
 
 });
 
+$router->get('/averageprice', function() {
+    // get best selledtracks from DB
+    return DB::table('invoices')
+            ->select(DB::raw('avg(invoices.Total) as euros'))
+            ->orderByDesc('euros')
+            ->get();
+
+});
+
