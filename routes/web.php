@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\DB;
 
 // All routes will be controle by VUE
-$router->get('/{any:.*}', function () {
+$router->get('/', function () {
     return view('app');
 });
 
-$router->post('/selledtracks', function() {
+$router->get('/selledtracks', function() {
     // get best selledtracks from DB
 
     return DB::select(' SELECT invoice_items.TrackId, count(invoice_items.TrackId) AS total,  tracks.Name track, artists.Name artist
@@ -17,6 +17,19 @@ $router->post('/selledtracks', function() {
                         JOIN artists ON artists.ArtistId = albums.ArtistId 
                         GROUP BY invoice_items.TrackId 
                         ORDER BY total DESC LIMIT 5');
+
+});
+
+
+$router->get('/bestcostumer', function() {
+    // get best selledtracks from DB
+
+    return DB::select(' SELECT invoices.CustomerId, sum(invoices.Total) AS euros, customers.FirstName, customers.LastName, customers.Email
+                        FROM invoices 
+                        JOIN customers
+                        ON customers.CustomerId = invoices.CustomerId
+                        GROUP BY invoices.CustomerId
+                        ORDER BY total DESC');
 
 });
 

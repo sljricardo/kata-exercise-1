@@ -2,7 +2,7 @@
    <table class="table">
         <thead class="thead-dark">
             <tr>
-            <th v-for="(name, index) in title" :key="index" 
+            <th v-for="(name, index) in titles.split('|')" :key="index" 
                 v-text="name"
                 scope="col" ></th>
             </tr>
@@ -10,7 +10,7 @@
 
         <transition-group 
             enter-active-class="animated fadeIn" 
-            leave-active-class="animated hide" 
+            leave-active-class="hide" 
             tag="tbody">
            <slot></slot>
         </transition-group>
@@ -21,16 +21,6 @@
 export default {
 
     props: ['titles'],
-
-    data() {
-        return {
-            title: []
-        }
-    },
-
-    created() {
-        this.title = this.titles.split('|');
-    }
 
 }
 </script>

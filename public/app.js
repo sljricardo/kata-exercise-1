@@ -1930,6 +1930,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1938,19 +1946,34 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       message: "hello",
-      list: []
+      list: [],
+      titles: "#|Track|Total Selled|Artist"
     };
   },
   methods: {
-    selledTracks: function selledTracks() {
+    bestCostumer: function bestCostumer() {
       var _this = this;
 
       // reset the array list
-      this.list = []; // Get most selled track from DB
+      this.list = [];
+      this.titles = "#|Total Orders|First Name|Last Name|Emails"; // Get most selled track from DB
 
-      axios.post('/selledtracks').then(function (response) {
+      axios.get('/bestcostumer').then(function (response) {
         response.data.forEach(function (element) {
           _this.list.push(element);
+        });
+      });
+    },
+    selledTracks: function selledTracks() {
+      var _this2 = this;
+
+      // reset the array list
+      this.list = [];
+      this.titles = "#|Track|Total Selled|Artist"; // Get most selled track from DB
+
+      axios.get('/selledtracks').then(function (response) {
+        response.data.forEach(function (element) {
+          _this2.list.push(element);
         });
       });
     }
@@ -1988,15 +2011,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['titles'],
-  data: function data() {
-    return {
-      title: []
-    };
-  },
-  created: function created() {
-    this.title = this.titles.split('|');
-  }
+  props: ['titles']
 });
 
 /***/ }),
@@ -2498,27 +2513,51 @@ var render = function() {
               on: { click: _vm.selledTracks }
             },
             [_vm._v("Most Selled Tracks")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-dark",
+              attrs: { type: "button" },
+              on: { click: _vm.bestCostumer }
+            },
+            [_vm._v("Best Costumer")]
           )
         ]),
         _vm._v(" "),
         _c(
           "b-table",
-          {
-            staticClass: "col-8",
-            attrs: { titles: "#|Track|Total Selled|Artist" }
-          },
+          { staticClass: "col-8", attrs: { titles: _vm.titles } },
           _vm._l(_vm.list, function(item, index) {
-            return _c("tr", { key: index }, [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(item.TrackId))
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.track))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.total))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.artist))])
-            ])
+            return _c(
+              "tr",
+              { key: index },
+              [
+                !index
+                  ? _vm._l(item, function(object, fields) {
+                      return _c("th", { key: fields }, [
+                        _vm._v(
+                          "\n                          " +
+                            _vm._s(object) +
+                            " " +
+                            _vm._s(fields == "euros" ? "€" : "")
+                        )
+                      ])
+                    })
+                  : _vm._l(item, function(object, fields) {
+                      return _c("td", { key: fields }, [
+                        _vm._v(
+                          "\n                          " +
+                            _vm._s(object) +
+                            " " +
+                            _vm._s(fields == "euros" ? "€" : "")
+                        )
+                      ])
+                    })
+              ],
+              2
+            )
           }),
           0
         )
@@ -2556,7 +2595,7 @@ var render = function() {
       _c("thead", { staticClass: "thead-dark" }, [
         _c(
           "tr",
-          _vm._l(_vm.title, function(name, index) {
+          _vm._l(_vm.titles.split("|"), function(name, index) {
             return _c("th", {
               key: index,
               attrs: { scope: "col" },
@@ -2572,7 +2611,7 @@ var render = function() {
         {
           attrs: {
             "enter-active-class": "animated fadeIn",
-            "leave-active-class": "animated hide",
+            "leave-active-class": "hide",
             tag: "tbody"
           }
         },
